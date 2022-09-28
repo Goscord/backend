@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/Goscord/DocGen/config"
+	"github.com/Goscord/DocGen/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -12,13 +13,17 @@ import (
 var app *fiber.App
 
 func main() {
-	app = fiber.New()
-
 	err := config.Load()
-
 	if err != nil {
 		log.Fatalf("Cannot load config: %v", err)
 	}
+
+	err = database.Init()
+	if err != nil {
+		log.Fatalf("Cannot init database: %v", err)
+	}
+
+	app = fiber.New()
 
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
