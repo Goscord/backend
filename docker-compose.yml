@@ -8,6 +8,11 @@ services:
       - ${PORT}:${PORT}
     volumes:
       - ./:/app
+    environment:
+      - PORT
+      - POSTGRES_INIT_USER
+      - POSTGRES_INIT_PASSWORD
+      - POSTGRES_INIT_DBNAME
     restart: always
   goscord-postgres:
     container_name: goscord-postgres
