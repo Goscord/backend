@@ -7,7 +7,5 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-RUN go install github.com/pilu/fresh
-
 #CMD fresh
 CMD go run main.go
