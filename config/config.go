@@ -11,11 +11,6 @@ var config *Config = nil
 type Config struct {
 	Port         int    `json:"port"`
 	GithubSecret string `json:"github_secret"`
-	Database     struct {
-		Host     string `json:"host"`
-		User     string `json:"user"`
-		Password string `json:"password"`
-	}
 }
 
 func Load() error {
@@ -23,7 +18,6 @@ func Load() error {
 		config := new(Config)
 
 		config.Port = 80
-		config.Database.Host = "127.0.0.1"
 
 		bytes, err := json.MarshalIndent(config, "", "    ")
 		if err != nil {
