@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Goscord/DocGen/database/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -19,7 +20,7 @@ func Init() error {
 		return errors.New("failed to connect database")
 	}
 
-	// Migrate models
+	db.AutoMigrate(&models.Version{})
 
 	dbConn, err := db.DB()
 	if err != nil {
