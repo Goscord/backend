@@ -24,4 +24,5 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_INIT_USER}
       - POSTGRES_PASSWORD=${POSTGRES_INIT_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_INIT_DBNAME}
     restart: always
