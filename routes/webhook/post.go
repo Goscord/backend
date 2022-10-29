@@ -2,8 +2,8 @@ package webhook
 
 import (
 	"net/http"
+	"os"
 
-	"github.com/Goscord/DocGen/config"
 	"github.com/Goscord/DocGen/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/go-github/v47/github"
@@ -19,7 +19,7 @@ func POSTHandler(c *fiber.Ctx) error {
 		return c.JSON(&utils.HTTPResponse{Message: "Internal Server Error"})
 	}
 
-	payload, err := github.ValidatePayload(req, []byte(config.Get().GithubSecret))
+	payload, err := github.ValidatePayload(req, []byte(os.Getenv("GITHUB_SECRET")))
 	if err != nil {
 		c.SendStatus(http.StatusBadRequest)
 		return c.JSON(&utils.HTTPResponse{Message: "SHA1 and SHA256 signatures are not valid"})

@@ -3,8 +3,8 @@ package routes
 import (
 	"fmt"
 	"log"
+	"os"
 
-	"github.com/Goscord/DocGen/config"
 	"github.com/Goscord/DocGen/routes/webhook"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -23,5 +23,11 @@ func Init() {
 	// /webhook
 	app.Post("/webhook", webhook.POSTHandler)
 
-	log.Fatal(app.Listen(fmt.Sprintf(":%d", config.Get().Port)))
+	port := os.Getenv("PORT")
+
+	if port != "" {
+		log.Fatal(app.Listen(fmt.Sprintf(":%s", port)))
+	} else {
+		log.Fatal(app.Listen(fmt.Sprintf(":%d", 3001)))
+	}
 }

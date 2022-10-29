@@ -2,7 +2,6 @@ package database
 
 import (
 	"errors"
-	"fmt"
 	"os"
 
 	"github.com/Goscord/DocGen/database/models"
@@ -11,10 +10,8 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var dsn string = fmt.Sprintf("postgres://%s:%s@host.docker.internal:5432/%s", os.Getenv("POSTGRES_INIT_USER"), os.Getenv("POSTGRES_INIT_PASSWORD"), os.Getenv("POSTGRES_INIT_DBNAME"))
-
 func Init() error {
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
+	db, err := gorm.Open(postgres.Open(os.Getenv("POSTGRES_CONNECT_LINK")), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
 
 	if err != nil {
 		return errors.New("failed to connect database")
@@ -33,5 +30,5 @@ func Init() error {
 }
 
 func GetDB() (*gorm.DB, error) {
-	return gorm.Open(postgres.Open(dsn), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
+	return gorm.Open(postgres.Open(os.Getenv("POSTGRES_CONNECT_LINK")), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
 }
